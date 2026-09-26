@@ -19,7 +19,8 @@ def get_file_hash(file_bytes):
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    # Fixed TemplateResponse syntax for latest FastAPI versions
+    return templates.TemplateResponse(request=request, name="index.html", context={"request": request})
 
 @app.post("/scan/")
 async def scan_document(file: UploadFile = File(...)):
