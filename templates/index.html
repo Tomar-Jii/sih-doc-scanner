@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Disable Zoom & Scalability -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Da Vinci Code - Border Checkpoint</title>
+    <title>MHA | SIH26188 Border Scanner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Hide scrollbars completely for app-like feel */
         ::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; overflow: hidden; overscroll-behavior-y: none; }
         .app-screen { display: none; height: 100vh; width: 100vw; flex-direction: column; }
@@ -17,69 +14,69 @@
         .glass-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-200 font-sans h-screen w-screen relative selection:bg-cyan-500 selection:text-white">
+<body class="bg-gray-950 text-gray-200 font-sans h-screen w-screen relative selection:bg-orange-500 selection:text-white">
 
     <!-- SCREEN 1: UPLOAD -->
     <div id="screen-upload" class="app-screen active p-4 pb-20">
         <header class="flex justify-between items-center py-4 border-b border-gray-800">
             <div>
-                <h1 class="text-2xl font-bold text-cyan-400"><i class="fa-solid fa-shield-halved mr-2"></i>SIH26188</h1>
-                <p class="text-xs text-gray-500">Border-Node | ID: 139735</p>
+                <h1 class="text-xl font-bold text-orange-400"><i class="fa-solid fa-building-shield mr-2"></i>Ministry of Home Affairs</h1>
+                <p class="text-[11px] text-gray-500 uppercase tracking-widest mt-1">Sashastra Seema Bal (SSB) | SIH26188</p>
             </div>
-            <a href="/ledger/" target="_blank" class="text-purple-400 bg-purple-900/30 px-3 py-1 rounded text-xs border border-purple-800"><i class="fa-solid fa-link mr-1"></i>Ledger</a>
+            <a href="/ledger/" target="_blank" class="text-purple-400 bg-purple-900/30 px-3 py-1 rounded text-xs border border-purple-800 flex items-center gap-1"><i class="fa-solid fa-link"></i></a>
         </header>
 
-        <div class="flex-1 flex flex-col justify-center items-center mt-8">
+        <div class="flex-1 flex flex-col justify-center items-center mt-4">
             <div class="text-center mb-8">
-                <div class="inline-block p-4 rounded-full bg-cyan-900/20 mb-4 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                    <i class="fa-solid fa-passport text-4xl text-cyan-400"></i>
+                <div class="inline-block p-4 rounded-full bg-orange-900/20 mb-4 border border-orange-500/30">
+                    <i class="fa-solid fa-id-card-clip text-4xl text-orange-500"></i>
                 </div>
-                <h2 class="text-xl font-bold text-white">Document Scanner</h2>
-                <p class="text-sm text-gray-400">Upload Passport or National ID</p>
+                <h2 class="text-xl font-bold text-white">Identity Checkpoint</h2>
+                <p class="text-xs text-gray-400 mt-1">Secure AI screening for Passports & Visas</p>
             </div>
 
-            <form id="uploadForm" class="w-full max-w-sm glass-panel p-6 rounded-2xl shadow-2xl">
+            <form id="uploadForm" class="w-full max-w-sm glass-panel p-6 rounded-2xl shadow-2xl border-t border-orange-500/20">
                 <div class="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center active:bg-gray-800 transition" id="dropzone">
                     <input type="file" id="fileInput" class="hidden" accept="image/*">
-                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-500 mb-2" id="uploadIcon"></i>
-                    <p class="text-sm text-gray-400" id="uploadText">Tap to select document</p>
+                    <i class="fa-solid fa-file-arrow-up text-3xl text-gray-500 mb-2" id="uploadIcon"></i>
+                    <p class="text-sm text-gray-400" id="uploadText">Select Identity Document</p>
                 </div>
-                <button type="submit" class="w-full mt-6 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition flex justify-center items-center gap-2">
-                    <i class="fa-solid fa-microchip"></i> Initiate AI Scan
+                <button type="submit" class="w-full mt-6 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-fingerprint"></i> Run Security Modules
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- SCREEN 2: PROCESSING -->
+    <!-- SCREEN 2: PROCESSING (The 4 Modules) -->
     <div id="screen-processing" class="app-screen p-6 justify-center items-center bg-gray-900 relative">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-gray-950 to-gray-950"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-900/20 via-gray-950 to-gray-950"></div>
         
         <div class="z-10 w-full max-w-sm">
-            <div class="text-center mb-10">
-                <div class="relative w-24 h-24 mx-auto mb-4">
-                    <div class="absolute inset-0 border-4 border-t-cyan-400 border-gray-800 rounded-full animate-spin"></div>
-                    <div class="absolute inset-0 flex justify-center items-center"><i class="fa-solid fa-brain text-2xl text-cyan-400 animate-pulse"></i></div>
+            <div class="text-center mb-8">
+                <div class="relative w-20 h-20 mx-auto mb-4">
+                    <div class="absolute inset-0 border-4 border-t-orange-500 border-gray-800 rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 flex justify-center items-center"><i class="fa-solid fa-microchip text-xl text-orange-500 animate-pulse"></i></div>
                 </div>
-                <h2 class="text-xl font-bold text-white">Analyzing Document</h2>
-                <p class="text-sm text-gray-400" id="process-timer">Estimated time: 3s</p>
+                <h2 class="text-lg font-bold text-white">Executing SIH Modules</h2>
             </div>
 
-            <div class="space-y-4">
-                <!-- Step 1 -->
-                <div class="flex items-center gap-4 glass-panel p-3 rounded-lg" id="step-1">
-                    <div class="w-8 h-8 rounded-full bg-gray-800 flex justify-center items-center text-gray-500 step-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
-                    <div class="flex-1"><p class="text-sm text-gray-300">Extracting MRZ (OCR)</p></div>
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 glass-panel p-3 rounded-lg" id="mod-1">
+                    <div class="w-6 h-6 rounded-full bg-gray-800 flex justify-center items-center text-[10px] text-gray-500 step-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                    <div class="flex-1"><p class="text-xs text-gray-300">Mod 1: OCR Extraction</p></div>
                 </div>
-                <!-- Step 2 -->
-                <div class="flex items-center gap-4 glass-panel p-3 rounded-lg opacity-50 transition-opacity duration-500" id="step-2">
-                    <div class="w-8 h-8 rounded-full bg-gray-800 flex justify-center items-center text-gray-500 step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <div class="flex-1"><p class="text-sm text-gray-300">Running Digital Forensics</p></div>
+                <div class="flex items-center gap-3 glass-panel p-3 rounded-lg opacity-40 transition-opacity duration-300" id="mod-2">
+                    <div class="w-6 h-6 rounded-full bg-gray-800 flex justify-center items-center text-[10px] text-gray-500 step-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="flex-1"><p class="text-xs text-gray-300">Mod 2: Document Validation</p></div>
                 </div>
-                <!-- Step 3 -->
-                <div class="flex items-center gap-4 glass-panel p-3 rounded-lg opacity-50 transition-opacity duration-500" id="step-3">
-                    <div class="w-8 h-8 rounded-full bg-gray-800 flex justify-center items-center text-gray-500 step-icon"><i class="fa-solid fa-link"></i></div>
-                    <div class="flex-1"><p class="text-sm text-gray-300">Securing to Blockchain</p></div>
+                <div class="flex items-center gap-3 glass-panel p-3 rounded-lg opacity-40 transition-opacity duration-300" id="mod-3">
+                    <div class="w-6 h-6 rounded-full bg-gray-800 flex justify-center items-center text-[10px] text-gray-500 step-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="flex-1"><p class="text-xs text-gray-300">Mod 3: Tampering Detection</p></div>
+                </div>
+                <div class="flex items-center gap-3 glass-panel p-3 rounded-lg opacity-40 transition-opacity duration-300" id="mod-4">
+                    <div class="w-6 h-6 rounded-full bg-gray-800 flex justify-center items-center text-[10px] text-gray-500 step-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="flex-1"><p class="text-xs text-gray-300">Mod 4: Face Verification</p></div>
                 </div>
             </div>
         </div>
@@ -89,51 +86,52 @@
     <div id="screen-results" class="app-screen p-4 flex flex-col bg-gray-950">
         <header class="flex justify-between items-center py-2 border-b border-gray-800 shrink-0">
             <button onclick="resetApp()" class="text-gray-400 active:text-white p-2"><i class="fa-solid fa-chevron-left text-xl"></i></button>
-            <h1 class="text-lg font-bold text-white">Analysis Report</h1>
-            <div class="w-8"></div> <!-- Spacer -->
+            <h1 class="text-sm font-bold text-white uppercase tracking-wider">Screening Report</h1>
+            <div class="w-8"></div>
         </header>
 
         <div class="flex-1 overflow-y-auto mt-4 pb-10 space-y-4 pr-1">
-            <!-- Final Status Card -->
-            <div id="res-status-card" class="glass-panel p-5 rounded-2xl border-l-4">
-                <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1"><i class="fa-solid fa-shield text-xs mr-1"></i> Final Status</div>
-                <div class="text-2xl font-black tracking-tight" id="res-status">...</div>
-                <div class="flex justify-between mt-3 text-xs">
-                    <span class="text-gray-400">Confidence Score</span>
-                    <span class="font-bold text-white bg-gray-800 px-2 py-1 rounded" id="res-score">...</span>
+            <!-- Final Status & Risk Score -->
+            <div id="res-status-card" class="glass-panel p-4 rounded-2xl border-l-4">
+                <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1"><i class="fa-solid fa-triangle-exclamation text-xs mr-1"></i> System Verdict</div>
+                <div class="text-lg font-black tracking-tight" id="res-status">...</div>
+                <div class="flex justify-between items-center mt-3 border-t border-gray-800 pt-2">
+                    <span class="text-xs text-gray-400">Assessed Risk Score</span>
+                    <span class="font-bold text-white bg-gray-800 px-3 py-1 rounded text-sm" id="res-score">...</span>
                 </div>
             </div>
 
-            <!-- Hash Fingerprint -->
+            <!-- Mod 1 & 2: Extracted Data -->
             <div class="glass-panel p-4 rounded-xl">
-                <div class="text-[10px] text-cyan-400 uppercase mb-2"><i class="fa-solid fa-fingerprint mr-1"></i> Payload Hash (SHA-256)</div>
-                <div class="text-[10px] text-gray-500 font-mono break-all bg-black/50 p-2 rounded" id="res-hash">...</div>
-            </div>
-
-            <!-- Extracted Data -->
-            <div class="glass-panel p-4 rounded-xl">
-                <div class="text-[10px] text-cyan-400 uppercase mb-2"><i class="fa-solid fa-file-lines mr-1"></i> Extracted Data (OCR)</div>
-                <div class="text-xs text-gray-300 font-mono whitespace-pre-wrap bg-black/50 p-2 rounded border border-gray-800" id="res-ocr">...</div>
-            </div>
-
-            <!-- Forensics Logs -->
-            <div class="glass-panel p-4 rounded-xl">
-                <div class="text-[10px] text-cyan-400 uppercase mb-2"><i class="fa-solid fa-bug mr-1"></i> Forensics Logs</div>
-                <ul class="list-none text-gray-300 text-[11px] space-y-2" id="res-logs"></ul>
-            </div>
-
-            <!-- Blockchain Receipt -->
-            <div class="glass-panel p-4 rounded-xl border border-purple-500/30 bg-purple-900/10">
-                <div class="text-[10px] text-purple-400 uppercase mb-2"><i class="fa-solid fa-cube mr-1"></i> Immutable Ledger Entry</div>
-                <div class="text-[10px] text-gray-400 space-y-1">
-                    <div class="flex justify-between"><span>Block Index:</span> <span class="text-white" id="res-block">...</span></div>
-                    <div class="flex justify-between"><span>Timestamp:</span> <span class="text-white" id="res-time">...</span></div>
-                    <div class="mt-2 text-[9px] break-all">Prev Hash: <span id="res-prev">...</span></div>
+                <div class="text-[10px] text-orange-400 uppercase mb-3 flex items-center gap-2"><i class="fa-solid fa-database"></i> Module 1 & 2: Extracted Data</div>
+                <div class="grid grid-cols-2 gap-2 text-xs" id="res-extracted-data">
+                    <!-- Injected via JS -->
                 </div>
+            </div>
+
+            <!-- Mod 3 & 4: Forensics -->
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="text-[10px] text-orange-400 uppercase mb-3 flex items-center gap-2"><i class="fa-solid fa-microscope"></i> Module 3 & 4: AI Forensics</div>
+                <div class="text-xs space-y-3">
+                    <div>
+                        <span class="text-gray-500 block mb-1">Tampering Analysis:</span>
+                        <ul class="list-none text-gray-300 text-[11px] space-y-1" id="res-tamper-logs"></ul>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 block mb-1">Face Verification:</span>
+                        <div class="text-gray-300 text-[11px]" id="res-face-log"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blockchain / Ledger -->
+            <div class="glass-panel p-3 rounded-xl border border-gray-800 bg-gray-900/50">
+                <div class="text-[9px] text-gray-500 uppercase mb-1">Blockchain Hash</div>
+                <div class="text-[9px] text-gray-600 font-mono break-all" id="res-hash">...</div>
             </div>
             
-            <button onclick="resetApp()" class="w-full mt-4 bg-gray-800 text-white font-bold py-4 rounded-xl shadow active:bg-gray-700 transition">
-                <i class="fa-solid fa-rotate-right mr-2"></i> Scan Another Document
+            <button onclick="resetApp()" class="w-full mt-2 bg-gray-800 text-white font-bold py-3 rounded-xl shadow active:bg-gray-700 transition text-sm">
+                Scan Next Document
             </button>
         </div>
     </div>
@@ -144,11 +142,9 @@
             processing: document.getElementById('screen-processing'),
             results: document.getElementById('screen-results')
         };
-
         const fileInput = document.getElementById('fileInput');
         const uploadText = document.getElementById('uploadText');
         const uploadIcon = document.getElementById('uploadIcon');
-        const form = document.getElementById('uploadForm');
 
         function switchScreen(screenName) {
             Object.values(screens).forEach(s => s.classList.remove('active'));
@@ -157,46 +153,47 @@
 
         function resetApp() {
             fileInput.value = '';
-            uploadText.innerHTML = 'Tap to select document';
-            uploadIcon.className = 'fa-solid fa-cloud-arrow-up text-3xl text-gray-500 mb-2';
+            uploadText.innerHTML = 'Select Identity Document';
+            uploadIcon.className = 'fa-solid fa-file-arrow-up text-3xl text-gray-500 mb-2';
             switchScreen('upload');
         }
 
         document.getElementById('dropzone').addEventListener('click', () => fileInput.click());
-        
         fileInput.addEventListener('change', () => {
             if(fileInput.files.length > 0) {
-                uploadIcon.className = 'fa-solid fa-circle-check text-3xl text-cyan-400 mb-2';
-                uploadText.innerHTML = `<span class="text-cyan-400 font-bold">${fileInput.files[0].name}</span>`;
+                uploadIcon.className = 'fa-solid fa-check-circle text-3xl text-orange-500 mb-2';
+                uploadText.innerHTML = `<span class="text-orange-400 font-bold">${fileInput.files[0].name}</span>`;
             }
         });
 
-        // Simulate step progression animation
-        function simulateProcessingSteps() {
-            const steps = [document.getElementById('step-1'), document.getElementById('step-2'), document.getElementById('step-3')];
+        function simulateModuleSteps() {
+            const steps = [document.getElementById('mod-1'), document.getElementById('mod-2'), document.getElementById('mod-3'), document.getElementById('mod-4')];
             
-            steps[0].classList.remove('opacity-50');
-            steps[0].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i>';
+            const runStep = (index, delay) => {
+                setTimeout(() => {
+                    if(index > 0) {
+                        steps[index-1].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-check text-green-500"></i>';
+                    }
+                    if(index < steps.length) {
+                        steps[index].classList.remove('opacity-40');
+                        steps[index].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-spinner fa-spin text-orange-500"></i>';
+                    }
+                }, delay);
+            };
 
-            setTimeout(() => {
-                steps[0].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-check text-green-500"></i>';
-                steps[1].classList.remove('opacity-50');
-                steps[1].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-spinner fa-spin text-cyan-400"></i>';
-            }, 1000);
-
-            setTimeout(() => {
-                steps[1].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-check text-green-500"></i>';
-                steps[2].classList.remove('opacity-50');
-                steps[2].querySelector('.step-icon').innerHTML = '<i class="fa-solid fa-spinner fa-spin text-purple-400"></i>';
-            }, 2000);
+            runStep(0, 0);
+            runStep(1, 800);
+            runStep(2, 1600);
+            runStep(3, 2400);
+            runStep(4, 3200); // Finish all
         }
 
-        form.addEventListener('submit', async (e) => {
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            if(!fileInput.files[0]) return alert("Please select a file first.");
+            if(!fileInput.files[0]) return alert("Please select a file.");
             
             switchScreen('processing');
-            simulateProcessingSteps();
+            simulateModuleSteps();
 
             const formData = new FormData();
             formData.append("file", fileInput.files[0]);
@@ -204,43 +201,64 @@
             try {
                 const response = await fetch('/scan/', { method: 'POST', body: formData });
                 const data = await response.json();
-                
-                // Keep processing screen for at least 3 seconds so animations finish
-                setTimeout(() => populateResults(data), 1500); 
+                setTimeout(() => populateResults(data), 3500); 
             } catch (err) {
-                alert("Server error occurred!");
+                alert("Processing failed.");
                 resetApp();
             }
         });
 
         function populateResults(data) {
-            const isTampered = data.analysis.is_tampered;
+            const mods = data.analysis.modules;
+            const risk = data.analysis.risk_score;
+            
+            // Status Card
             const resCard = document.getElementById('res-status-card');
             const resStatus = document.getElementById('res-status');
+            const resScore = document.getElementById('res-score');
             
-            if (isTampered) {
-                resCard.className = 'glass-panel p-5 rounded-2xl border-l-4 border-red-500 bg-red-900/10';
-                resStatus.className = 'text-2xl font-black tracking-tight text-red-500';
+            if (risk >= 50) {
+                resCard.className = 'glass-panel p-4 rounded-2xl border-l-4 border-red-600 bg-red-900/10';
+                resStatus.className = 'text-lg font-black tracking-tight text-red-500';
+                resScore.className = 'font-bold text-red-500 bg-red-900/30 px-3 py-1 rounded text-sm';
+            } else if (risk >= 20) {
+                resCard.className = 'glass-panel p-4 rounded-2xl border-l-4 border-yellow-500 bg-yellow-900/10';
+                resStatus.className = 'text-lg font-black tracking-tight text-yellow-500';
+                resScore.className = 'font-bold text-yellow-500 bg-yellow-900/30 px-3 py-1 rounded text-sm';
             } else {
-                resCard.className = 'glass-panel p-5 rounded-2xl border-l-4 border-emerald-500 bg-emerald-900/10';
-                resStatus.className = 'text-2xl font-black tracking-tight text-emerald-400';
+                resCard.className = 'glass-panel p-4 rounded-2xl border-l-4 border-emerald-500 bg-emerald-900/10';
+                resStatus.className = 'text-lg font-black tracking-tight text-emerald-400';
+                resScore.className = 'font-bold text-emerald-400 bg-emerald-900/30 px-3 py-1 rounded text-sm';
             }
 
-            resStatus.innerText = data.analysis.status;
-            document.getElementById('res-score').innerText = data.analysis.confidence + '%';
-            document.getElementById('res-hash').innerText = data.document_hash;
-            document.getElementById('res-ocr').innerText = data.analysis.text_extracted;
-            
-            document.getElementById('res-logs').innerHTML = data.analysis.reasons.map(r => `
+            resStatus.innerText = data.analysis.final_status;
+            resScore.innerText = risk + ' / 100';
+
+            // Extracted Data (Mod 1 & 2)
+            const extractedDiv = document.getElementById('res-extracted-data');
+            extractedDiv.innerHTML = '';
+            for (const [key, value] of Object.entries(mods.ocr.data)) {
+                extractedDiv.innerHTML += `
+                    <div class="bg-black/30 p-2 rounded border border-gray-800">
+                        <span class="text-gray-500 block text-[9px] uppercase">${key.replace('_', ' ')}</span>
+                        <span class="text-gray-200 font-medium">${value}</span>
+                    </div>`;
+            }
+
+            // Tampering (Mod 3)
+            const isTampered = mods.tampering.status === "Flagged";
+            document.getElementById('res-tamper-logs').innerHTML = mods.tampering.details.map(r => `
                 <li class="flex items-start gap-2">
-                    <i class="fa-solid ${isTampered ? 'fa-triangle-exclamation text-red-500' : 'fa-check text-emerald-500'} mt-1"></i>
+                    <i class="fa-solid ${isTampered ? 'fa-xmark text-red-500' : 'fa-check text-emerald-500'} mt-0.5"></i>
                     <span>${r}</span>
                 </li>`).join('');
 
-            document.getElementById('res-block').innerText = '#' + data.blockchain_receipt.block_index;
-            document.getElementById('res-time').innerText = new Date(data.blockchain_receipt.timestamp * 1000).toLocaleTimeString();
-            document.getElementById('res-prev').innerText = data.blockchain_receipt.previous_hash;
+            // Face (Mod 4)
+            const faceLog = document.getElementById('res-face-log');
+            const isFaceVerified = mods.face.status === "Verified";
+            faceLog.innerHTML = `<i class="fa-solid ${isFaceVerified ? 'fa-user-check text-emerald-500' : 'fa-user-xmark text-red-500'} mr-1"></i> ${mods.face.details}`;
 
+            document.getElementById('res-hash').innerText = data.document_hash;
             switchScreen('results');
         }
     </script>
