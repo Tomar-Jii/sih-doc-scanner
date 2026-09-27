@@ -13,89 +13,70 @@ def run_all_modules(image_path):
         cv_img = cv2.imread(image_path)
         gray = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
     except:
-        return {"risk_score": 100, "final_status": "ERROR: UNREADABLE IMAGE", "modules": {}}
+        return {"risk_score": 100, "final_status": "CRITICAL RISK / UNREADABLE", "modules": {}}
 
-    # ==========================================
-    # PRE-BUILT MODEL 1: FACE DETECTION
-    # ==========================================
-    faces_detected = 0
+    # === 1. PRE-PROCESSING FOR REAL OCR ===
+    # Resize aur Adaptive Thresholding se text clear karna
+    gray = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+    thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+    
     try:
-        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-        faces_detected = len(faces)
-    except:
-        pass
-
-    # ==========================================
-    # PRE-BUILT MODEL 2: DOCUMENT SHAPE DETECTION (EDGE/CONTOUR)
-    # ==========================================
-    doc_found = False
-    try:
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-        edged = cv2.Canny(blurred, 30, 150)
-        contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        for c in contours:
-            peri = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, 0.02 * peri, True)
-            # Find a large rectangular shape typical of ID cards
-            if len(approx) >= 4 and cv2.contourArea(approx) > 10000:
-                doc_found = True
-                break
-    except:
-        pass
-
-    # ==========================================
-    # REAL OCR EXTRACTION
-    # ==========================================
-    try:
-        raw_text = pytesseract.image_to_string(img)
+        raw_text = pytesseract.image_to_string(thresh)
         text_upper = raw_text.upper()
-        # Filter out empty lines
         lines = [line.strip() for line in raw_text.split('\n') if len(line.strip()) > 2]
     except:
         raw_text = ""
         text_upper = ""
         lines = []
 
-    # GATEWAY: Pass if Face is found OR Card Shape is found OR it has sufficient text
-    is_valid = faces_detected > 0 or doc_found or len(lines) >= 3
+    # === 2. FACE DETECTION ===
+    faces_detected = 0
+    try:
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(50, 50))
+        faces_detected = len(faces)
+    except:
+        pass
 
-    if not is_valid:
-        # Reject non-documents (scenery, blank photos)
-        results["modules"]["ocr"] = {"status": "Blocked", "data": {"ERROR": "NO FACE, NO TEXT, OR CARD SHAPE DETECTED"}}
-        results["modules"]["validation"] = {"status": "Critical", "details": "Image lacks basic document characteristics."}
+    # === 3. STRICT GATEWAY (Anti-Screenshot Logic) ===
+    has_keywords = bool(re.search(r'(GOVERNMENT|INDIA|REPUBLIC|INCOME|TAX|ELECTION|PAN|AADHAAR|DOB|DATE|NAME|FATHER)', text_upper))
+    has_mrz = bool(re.search(r'[PVI]<[A-Z]{3}', text_upper))
+    
+    # Agar image mein na toh text lines hain, na face, aur na hi ID wale keywords -> REJECT
+    if len(lines) < 2 or (faces_detected == 0 and not has_keywords and not has_mrz):
+        results["modules"]["ocr"] = {"status": "Blocked", "data": {"ERROR": "INVALID ID OR RANDOM SCREENSHOT DETECTED", "TEXT_LINES_READ": str(len(lines))}}
+        results["modules"]["validation"] = {"status": "Critical", "details": "No official ID characteristics found."}
         results["modules"]["tampering"] = {"status": "Skipped", "details": ["Analysis aborted."]}
-        results["modules"]["face"] = {"status": "Skipped", "details": "No face found."}
+        results["modules"]["face"] = {"status": "Failed", "details": f"{faces_detected} faces found."}
         results["risk_score"] = 100
         results["final_status"] = "CRITICAL RISK / NOT A DOCUMENT"
         return results
 
-    # ==========================================
-    # EXTRACT REAL DATA (Regex Pattern Matching)
-    # ==========================================
+    # === 4. REAL DATA EXTRACTION ===
     extracted_name = "NOT DETECTED"
     extracted_id = "NOT DETECTED"
     extracted_dob = "NOT DETECTED"
 
-    # Match ID formats (Aadhaar: 0000 0000 0000, PAN: ABCDE1234F, Passport: A1234567)
-    aadhaar_match = re.search(r'\d{4}[\s\-]?\d{4}[\s\-]?\d{4}', raw_text)
-    pan_match = re.search(r'[A-Z]{5}\d{4}[A-Z]{1}', text_upper)
-    passport_match = re.search(r'[A-Z][0-9]{7}', text_upper)
+    # Aadhaar (XXXX XXXX XXXX), PAN (ABCDE1234F), Passport (A1234567)
+    aadhaar_match = re.search(r'\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b', raw_text)
+    pan_match = re.search(r'\b[A-Z]{5}\d{4}[A-Z]{1}\b', text_upper)
+    passport_match = re.search(r'\b[A-Z][0-9]{7}\b', text_upper)
 
     if aadhaar_match: extracted_id = aadhaar_match.group(0)
     elif pan_match: extracted_id = pan_match.group(0)
     elif passport_match: extracted_id = passport_match.group(0)
 
-    # Match DOB
-    dob_match = re.search(r'\d{2}[/\-]\d{2}[/\-]\d{4}', raw_text)
-    if dob_match: 
+    dob_match = re.search(r'\b\d{2}[/\-]\d{2}[/\-]\d{4}\b', raw_text)
+    if dob_match:
         extracted_dob = dob_match.group(0)
-    elif re.search(r'(DOB|YOB|YEAR OF BIRTH).*?(\d{4})', text_upper):
-        extracted_dob = re.search(r'(DOB|YOB|YEAR OF BIRTH).*?(\d{4})', text_upper).group(2)
+    elif re.search(r'(DOB|YOB|BIRTH).*?(\d{4})', text_upper):
+        extracted_dob = re.search(r'(DOB|YOB|BIRTH).*?(\d{4})', text_upper).group(2)
 
-    # Basic Name Heuristic (Usually a fully capitalized line)
+    # Smart Name Extractor (Avoid govt headers)
+    garbage_words = ['GOVERNMENT', 'INDIA', 'INCOME', 'TAX', 'DEPARTMENT', 'ELECTION', 'COMMISSION', 'FATHER', 'NAME', 'DOB', 'SIGNATURE']
     for line in lines:
-        if re.match(r'^[A-Z\s]{5,25}$', line) and line not in ["GOVERNMENT OF INDIA", "REPUBLIC OF INDIA", "INCOME TAX DEPARTMENT", "ELECTION COMMISSION"]:
+        upper_line = line.upper()
+        if re.match(r'^[A-Z\s\.]{5,25}$', upper_line) and not any(gw in upper_line for gw in garbage_words):
             extracted_name = line
             break
 
@@ -108,25 +89,29 @@ def run_all_modules(image_path):
             "TEXT_LINES_READ": str(len(lines))
         }
     }
-    
-    results["modules"]["validation"] = {
-        "status": "Passed" if extracted_id != "NOT DETECTED" else "Flagged",
-        "details": "Valid Government ID pattern verified." if extracted_id != "NOT DETECTED" else "Could not verify official ID format from text."
-    }
-    
-    if extracted_id == "NOT DETECTED": 
-        risk_points += 20
 
-    # ==========================================
-    # FORENSICS & TAMPERING
-    # ==========================================
+    # === 5. VALIDATION PENALTY ===
+    if extracted_id == "NOT DETECTED":
+        risk_points += 40
+        val_status = "Flagged"
+        val_details = "Critical Data Missing: ID Number."
+    else:
+        val_status = "Passed"
+        val_details = f"Verified ID Format: {extracted_id}"
+        
+    if extracted_name == "NOT DETECTED" or extracted_dob == "NOT DETECTED":
+        risk_points += 20
+        
+    results["modules"]["validation"] = {"status": val_status, "details": val_details}
+
+    # === 6. FORENSICS ===
     tampered = False
     try:
-        exif_data = img._getexif()
-        if exif_data:
-            for tag_id, value in exif_data.items():
+        exif = img._getexif()
+        if exif:
+            for tag_id, val in exif.items():
                 tag = ExifTags.TAGS.get(tag_id, tag_id)
-                if tag == 'Software' and any(sw in str(value).lower() for sw in ['photoshop', 'gimp']):
+                if tag == 'Software' and any(sw in str(val).lower() for sw in ['photoshop', 'gimp']):
                     tampered = True
                     risk_points += 40
     except:
@@ -137,19 +122,20 @@ def run_all_modules(image_path):
         "details": ["Software editing detected in EXIF data."] if tampered else ["No metadata tampering detected."]
     }
 
-    # ==========================================
-    # FACE VERIFICATION
-    # ==========================================
-    if faces_detected == 1:
-        results["modules"]["face"] = {"status": "Verified", "details": "1 human face accurately detected on document."}
+    # === 7. FACE PENALTY ===
+    if faces_detected >= 1:
+        results["modules"]["face"] = {"status": "Verified", "details": f"{faces_detected} human face(s) detected."}
     else:
-        results["modules"]["face"] = {"status": "Flagged", "details": f"{faces_detected} faces found. Verification failed."}
-        risk_points += 25
+        results["modules"]["face"] = {"status": "Flagged", "details": "0 faces found. Verification failed."}
+        risk_points += 30
 
+    # === 8. FINAL RISK SCORE TIER ===
     results["risk_score"] = min(100, risk_points)
     
-    if results["risk_score"] >= 50:
-        results["final_status"] = "HIGH RISK / MANUAL REVIEW REQUIRED"
+    if results["risk_score"] >= 60:
+        results["final_status"] = "HIGH RISK / FORGERY SUSPECTED"
+    elif results["risk_score"] >= 30:
+        results["final_status"] = "MEDIUM RISK / MANUAL REVIEW"
     else:
         results["final_status"] = "CLEAN / AUTHENTIC DOCUMENT"
 
